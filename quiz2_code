@@ -1,0 +1,54 @@
+#a
+#download your private key (the .pem file) and put it in the current directory of your Git Bash/Terminal application 
+#login your AWS account
+ssh -i 44306261.pem ubuntu@ec2-52-63-137-98.ap-southeast-2.compute.amazonaws.com
+
+#Download structure.pdb into your AWS account and change the name as structure.pdb
+curl https://www.staff.hs-mittweida.de/~wuenschi/data/medi.pdb > structure.pdb
+
+#Change Beisel’s name to Weisel
+sed 's/Beisel/Weisel/' structure.pdb
+
+
+
+#b_Delete the ﬁrst three lines of the ﬁle
+sed '1,3d' structure.pdb
+
+#c_Print only lines 5 through 10
+sed -n '5,10p' structure.pdb
+
+
+#d_Delete lines containing the word MET
+sed '/MET/d' structure.pdb
+
+
+#e_Print all lines where the HELIX line contains the word ILE
+sed -n '/HELIX.*ILE/p' structure.pdb
+
+
+#f_Append three stars to the end of lines starting with "H"
+sed '/^H/s/$/***/' structure.pdb
+
+
+#g_Replace the line containing SEQRES with SEQ
+sed '/SEQRES/s/^.*$/SEQ/' structure.pdb
+
+
+#h_Create a ﬁle with text and blank lines. Then delete all blank lines of that ﬁle
+# exit your account and then upload the jabberwocky.txt into your AWS account
+exit
+scp -i 44306261.pem jabberwocky.txt ubuntu@ec2-52-63-137-98.ap-southeast-2.compute.amazonaws.com:
+
+#login your AWS account
+ssh -i 44306261.pem ubuntu@ec2-52-63-137-98.ap-southeast-2.compute.amazonaws.com
+
+#Check whether jabberwocky.txt is in your account
+ls
+
+#Delete all blank lines of that ﬁle and show it
+sed -i '/^[[:space:]]*$/d' jabberwocky.txt
+cat jabberwocky.txt
+
+
+
+
